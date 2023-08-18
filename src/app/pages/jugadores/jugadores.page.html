@@ -1,9 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Lista Jugadores</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
+  <ion-list>
+    <ion-item *ngFor="let aux of listaJugadores" [routerLink]="['/jugadores/', aux.id]">
+      <ion-avatar slot="start">
+        <ion-img [src]="aux.imagen"></ion-img>
+      </ion-avatar>
+      <ion-label>{{ aux.nombre }} </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

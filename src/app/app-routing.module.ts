@@ -13,8 +13,17 @@ const routes: Routes = [
   },
   {
     path: 'jugadores',
-    loadChildren: () => import('./pages/jugadores/jugadores.module').then( m => m.JugadoresPageModule)
-  },
+    children: [
+      {
+        path: "",
+        loadChildren: () => import('./pages/jugadores/jugadores.module').then( m => m.JugadoresPageModule)
+      },
+      {
+        path: ':id',
+        loadChildren: () => import('./pages/jugadores/detalle/detalle.module').then( m => m.DetallePageModule)
+      }
+    ]
+  }, 
   {
     path: 'equipos',
     loadChildren: () => import('./pages/equipos/equipos.module').then( m => m.EquiposPageModule)
@@ -47,10 +56,7 @@ const routes: Routes = [
     path: 'estadisticas',
     loadChildren: () => import('./pages/estadisticas/estadisticas.module').then( m => m.EstadisticasPageModule)
   },
-  {
-    path: 'detalle',
-    loadChildren: () => import('./pages/detalle/detalle.module').then( m => m.DetallePageModule)
-  }
+
 ];
 
 @NgModule({

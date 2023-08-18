@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { JugadoresService } from 'src/app/services/jugadores.service';
+import { Jugador } from './jugadores.model';
+
 
 @Component({
   selector: 'app-jugadores',
@@ -8,9 +10,12 @@ import { Router } from '@angular/router';
 })
 export class JugadoresPage implements OnInit {
 
-  constructor(private router: Router) { }
+  listaJugadores: Jugador[] = [];
+
+  constructor(private jugadoresService: JugadoresService) { }
 
   ngOnInit() {
+    this.listaJugadores = this.jugadoresService.getAll()
   }
 
 
