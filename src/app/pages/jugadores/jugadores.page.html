@@ -4,16 +4,40 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Lista Jugadores</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="refresh" (click)="listar()"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content>
+  <ion-searchbar (ionChange)="buscarJugador($event)" animated placeholder=""></ion-searchbar>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
-    <ion-item *ngFor="let aux of listaJugadores" [routerLink]="['/jugadores/', aux.id]">
-      <ion-avatar slot="start">
-        <ion-img [src]="aux.imagen"></ion-img>
-      </ion-avatar>
-      <ion-label>{{ aux.nombre }} </ion-label>
-    </ion-item>
+    <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+      <ion-item *ngFor="let aux of listaJugadores" [routerLink]="['/jugadores/', aux.id]">
+        <ion-avatar slot="start">
+          <ion-img [src]="aux.imagen"></ion-img>
+        </ion-avatar>
+        <ion-label>{{ aux.nombre }} </ion-label>
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </ion-reorder-group>
   </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon (click)="addJugador()" name="person-add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
 </ion-content>
