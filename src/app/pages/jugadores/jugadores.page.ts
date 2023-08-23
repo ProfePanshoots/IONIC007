@@ -55,6 +55,8 @@ export class JugadoresPage implements OnInit {
         // BUSQUE TODOS LOS POSIBLES RESULTADOS EN MAYUS Y EN MINUS
         return (aux.nombre.toLowerCase().indexOf(texto.toLowerCase()) >-1 );
       })
+    } else {
+      this.listar();
     }
   }
 

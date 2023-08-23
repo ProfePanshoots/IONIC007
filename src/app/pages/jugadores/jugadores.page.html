@@ -8,11 +8,13 @@
       <ion-icon name="refresh" (click)="listar()"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
-  
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="buscarJugador($event)" animated placeholder=""></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionChange)="buscarJugador($event)" animated placeholder=""></ion-searchbar>
+  
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
