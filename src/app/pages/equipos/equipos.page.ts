@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient} from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-equipos',
@@ -7,9 +9,73 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EquiposPage implements OnInit {
 
-  constructor() { }
+  digimones: any[] = [];
+  personajes: any[] = [];
+
+  paginaActual = 0;
+
+
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
+    this.cargarData();
   }
 
+  cargarData() {
+    const url = `https://www.digi-api.com/api/v1/digimon?page=${this.paginaActual}`    
+    
+    this.httpClient.get<any>(url).subscribe(resultado => {
+      //this.digimones = this.digimones.concat(resultado.content);
+      this.digimones = resultado.content;
+    });
+    this.mensaje();
+  }
+
+  cargarMasData() {
+    this.paginaActual++;
+    const url = `https://www.digi-api.com/api/v1/digimon?page=${this.paginaActual}`    
+    this.httpClient.get<any>(url).subscribe(resultado => {
+      this.digimones = this.digimones.concat(resultado.content);
+    });
+    this.mensajeToast('Carga exitosa!');
+  }
+
+  cargarSiguientePagina() {
+    this.paginaActual++;
+    this.cargarData();
+  }
+
+  cargarAnteriorPagina() {
+    this.paginaActual--;
+    this.cargarData();
+  }
+
+  mensajeToast(mensaje: String) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-end',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: mensaje
+    })
+  }
+
+  mensaje() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+      heightAuto: false,
+      footer: '<a href="">Why do I have this issue?</a>'
+    })
+  }
 }

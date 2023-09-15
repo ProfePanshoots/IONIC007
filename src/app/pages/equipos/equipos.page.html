@@ -8,9 +8,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">equipos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list *ngFor="let aux of digimones">
+    <ion-item>
+      <ion-card [routerLink]="'/detallecard/'+aux.id">
+        <img src="{{aux.image}}" alt="">
+        <ion-card-header>
+          <ion-card-title>{{aux.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="cargarMasData()"> Mas </ion-button>
+  <ion-button (click)="cargarAnteriorPagina()"> Anterior</ion-button>
+  <ion-button (click)="cargarSiguientePagina()"> Siguiente</ion-button>
+  
 </ion-content>
