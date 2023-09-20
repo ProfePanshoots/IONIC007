@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-equipos',
@@ -15,19 +16,25 @@ export class EquiposPage implements OnInit {
   paginaActual = 0;
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
+    //const aux = this.loading();
     this.cargarData();
+    /*setTimeout(() => {
+      this.hideLoading(aux);
+    }, 2000);*/
   }
 
   cargarData() {
     const url = `https://www.digi-api.com/api/v1/digimon?page=${this.paginaActual}`    
-    
     this.httpClient.get<any>(url).subscribe(resultado => {
-      //this.digimones = this.digimones.concat(resultado.content);
       this.digimones = resultado.content;
     });
+
+    
     this.mensaje();
   }
 
@@ -77,5 +84,18 @@ export class EquiposPage implements OnInit {
       heightAuto: false,
       footer: '<a href="">Why do I have this issue?</a>'
     })
+  }
+
+  async loading() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando...',
+      spinner: 'dots'
+    });
+    await loading.present();
+    return loading;
+  }
+
+  async hideLoading(aux: any) {
+    await aux.dismiss();
   }
 }
