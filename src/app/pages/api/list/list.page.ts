@@ -17,9 +17,19 @@ export class ListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.listar()
+  }
+
+  ionViewWillEnter() {
+    this.listar()
+  }
+
+  listar() {
     this.jugadoresApi.listJugadores().subscribe((resp) => {
       //console.log(resp)
-      this.listaJugadores = resp
+      let aux = JSON.stringify(resp)
+      this.listaJugadores = JSON.parse(aux)
+      console.log(this.listaJugadores)
     })
   }
 

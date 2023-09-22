@@ -5,9 +5,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <img alt="Silhouette of mountains" src="" />
+    <ion-card-header>
+      <ion-card-title> {{ jugador.nombre }}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{ jugador.genero }}
+    </ion-card-content>
+  </ion-card>
+  <ion-button [routerLink]="['/apiupdate', jugador.id]">Actualizar</ion-button>
+  <ion-button (click)="deleteJugador()">Eliminar</ion-button>
 </ion-content>
