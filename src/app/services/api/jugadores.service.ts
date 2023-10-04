@@ -10,25 +10,26 @@ import { environment } from 'src/environments/environment';
 })
 export class JugadoresService {
 
+  apiURL = "https://jsonserver007.onrender.com";
   constructor(private httpClient: HttpClient) { }
 
   listJugadores(): Observable<IJugadores> {
-    return this.httpClient.get<IJugadores>(`${environment.apiURL}/jugadores`);
+    return this.httpClient.get<IJugadores>(`${this.apiURL}/jugadores`);
   }
 
   addJugador(jugador: IJugador): Observable<IJugador> {
-    return this.httpClient.post<IJugador>(`${environment.apiURL}/jugadores`, jugador);
+    return this.httpClient.post<IJugador>(`${this.apiURL}/jugadores`, jugador);
   }
 
   getJugador(id: Number): Observable<IJugadores> {
-    return this.httpClient.get<IJugadores>(`${environment.apiURL}/jugadores/?id=${id}`);
+    return this.httpClient.get<IJugadores>(`${this.apiURL}/jugadores/?id=${id}`);
   }
 
   updateJugador(jugador: any): Observable<IJugadores> {
-    return this.httpClient.put<IJugadores>(`${environment.apiURL}/jugadores/${jugador.id}`, jugador);
+    return this.httpClient.put<IJugadores>(`${this.apiURL}/jugadores/${jugador.id}`, jugador);
   }
 
   deleteJugador(jugador: any): Observable<IJugadores> {
-    return this.httpClient.delete<IJugadores>(`${environment.apiURL}/jugadores/${jugador.id}`);
+    return this.httpClient.delete<IJugadores>(`${this.apiURL}/jugadores/${jugador.id}`);
   }
 }
